@@ -473,6 +473,57 @@
         "x-ms-visibility": "important"
       }
     },
+    "/2/object/ezsignfolder/{pkiEzsignfolderID}/reorder": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsignfolder",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsignfolderID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-reorder-v2-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-reorder-v2-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "operationId": "Ezsignfolder_Reorder_V2",
+        "summary": "Reorder Ezsigndocuments in the Ezsignfolder",
+        "x-ms-visibility": "advanced"
+      }
+    },
     "/2/object/ezsignfoldersignerassociation": {
       "post": {
         "consumes": [
@@ -1724,6 +1775,25 @@
       ],
       "type": "object"
     },
+    "Custom-Ezsigndocument-Request": {
+      "description": "Request for POST /2/object/ezsignfolder/{pkiEzsignfolderID}/reorder",
+      "properties": {
+        "a_objEzsigndocumentdependency": {
+          "items": {
+            "$ref": "#/definitions/ezsigndocumentdependency-RequestCompound"
+          },
+          "type": "array"
+        },
+        "pkiEzsigndocumentID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        }
+      },
+      "required": [
+        "pkiEzsigndocumentID",
+        "a_objEzsigndocumentdependency"
+      ],
+      "type": "object"
+    },
     "Custom-Ezsignformfielderror-Response": {
       "description": "A Custom Ezsignformfield Object to contain an error list",
       "properties": {
@@ -2205,6 +2275,13 @@
     "Field-pkiEzsigndocumentID": {
       "description": "The unique ID of the Ezsigndocument",
       "example": 97,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Field-pkiEzsigndocumentdependencyID": {
+      "description": "The unique ID of the Ezsigndocumentdependency",
+      "example": 87,
+      "maximum": 16777215,
       "minimum": 0,
       "type": "integer"
     },
@@ -3411,6 +3488,21 @@
       },
       "type": "object"
     },
+    "ezsigndocumentdependency-RequestCompound": {
+      "description": "An Ezsigndocumentdependency Object",
+      "properties": {
+        "fkiEzsigndocumentIDdependency": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        },
+        "pkiEzsigndocumentdependencyID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentdependencyID"
+        }
+      },
+      "required": [
+        "fkiEzsigndocumentIDdependency"
+      ],
+      "type": "object"
+    },
     "ezsignfolder-RequestCompound": {
       "description": "An Ezsignfolder Object and children to create a complete structure",
       "properties": {
@@ -3601,6 +3693,40 @@
     },
     "ezsignfolder-dispose-v1-Response": {
       "description": "Response for POST /1/object/ezsignfolder/{pkiEzsignfolderID}/dispose",
+      "properties": {
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-reorder-v2-Request": {
+      "description": "Request for POST /2/object/ezsignfolder/{pkiEzsignfolderID}/reorder",
+      "properties": {
+        "a_objEzsigndocument": {
+          "items": {
+            "$ref": "#/definitions/Custom-Ezsigndocument-Request"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "eEzsignfolderDocumentdependency": {
+          "$ref": "#/definitions/Field-eEzsignfolderDocumentdependency"
+        }
+      },
+      "required": [
+        "a_objEzsigndocument"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-reorder-v2-Response": {
+      "description": "Response for POST /2/object/ezsignfolder/{pkiEzsignfolderID}/reorder",
       "properties": {
         "objDebug": {
           "$ref": "#/definitions/Common-Response-objDebug"
