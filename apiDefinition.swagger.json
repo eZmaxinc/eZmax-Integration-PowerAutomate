@@ -305,6 +305,41 @@
         "summary": "Dispose the Ezsignfolder"
       }
     },
+    "/1/object/ezsignfolder/{pkiEzsignfolderID}/getEzsigndocuments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsignfolder",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsignfolderID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-getEzsigndocuments-v1-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "",
+        "operationId": "Ezsignfolder_GetEzsigndocuments_V1",
+        "summary": "Retrieve an existing Ezsignfolder's Ezsigndocuments",
+        "x-ms-visibility": "advanced"
+      }
+    },
     "/2/object/activesession/getCurrent": {
       "get": {
         "produces": [
@@ -1377,6 +1412,55 @@
     }
   },
   "definitions": {
+    "Common-Audit": {
+      "description": "Gives informations about the user that created the object and the last user to have modified it.\n\nIf the object was never modified after creation, objAuditdetailModified won't be returned.\n",
+      "properties": {
+        "objAuditdetailCreated": {
+          "$ref": "#/definitions/Common-Auditdetail"
+        },
+        "objAuditdetailModified": {
+          "$ref": "#/definitions/Common-Auditdetail"
+        }
+      },
+      "required": [
+        "objAuditdetailCreated"
+      ],
+      "type": "object"
+    },
+    "Common-Auditdetail": {
+      "description": "Gives informations about the user that created the object or the last user to have modified it.\n\nIf the object was never modified after creation, both Created and Modified informations will be the same.\n",
+      "properties": {
+        "dtAuditdetailDate": {
+          "$ref": "#/definitions/Common-Format-DateTime"
+        },
+        "fkiApikeyID": {
+          "$ref": "#/definitions/Field-pkiApikeyID"
+        },
+        "fkiUserID": {
+          "$ref": "#/definitions/Field-pkiUserID"
+        },
+        "sApikeyDescriptionX": {
+          "$ref": "#/definitions/Field-sApikeyDescriptionX"
+        },
+        "sUserFirstname": {
+          "$ref": "#/definitions/Field-sUserFirstname"
+        },
+        "sUserLastname": {
+          "$ref": "#/definitions/Field-sUserLastname"
+        },
+        "sUserLoginname": {
+          "$ref": "#/definitions/Field-sUserLoginname"
+        }
+      },
+      "required": [
+        "fkiUserID",
+        "sUserLoginname",
+        "sUserFirstname",
+        "sUserLastname",
+        "dtAuditdetailDate"
+      ],
+      "type": "object"
+    },
     "Common-Format-DateTime": {
       "description": "Represent a Date Time.\nThe timezone is the one configured in the User's profile.",
       "example": "2020-12-31 23:59:59",
@@ -1704,10 +1788,72 @@
       ],
       "type": "object"
     },
+    "Computed-bEzsigndocumentEzsignform": {
+      "description": "If the Ezsigndocument contains an Ezsignform or not",
+      "example": true,
+      "type": "boolean"
+    },
+    "Computed-eEzsigndocumentSteptype": {
+      "description": "Indicates whether the current step is a form or signatures.",
+      "enum": [
+        "Form",
+        "Sign",
+        "None"
+      ],
+      "example": "Sign",
+      "type": "string"
+    },
+    "Computed-iEzsigndocumentEzsigndiscussiontotal": {
+      "description": "The total number of Ezsigndiscussions",
+      "example": 14,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentEzsignsignatureattachmenttotal": {
+      "description": "The number of Ezsigndocumentattachment total",
+      "example": 3,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentFormfieldtotal": {
+      "description": "The number of total Ezsignformfield that were requested in the Ezsigndocument.",
+      "example": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentStepformcurrent": {
+      "description": "The current step in the form filling phase",
+      "example": 1,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentStepformtotal": {
+      "description": "The total number of steps in the form filling phase",
+      "example": 2,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentStepsignatureCurrent": {
+      "description": "The current step in the signature phase",
+      "example": 0,
+      "type": "integer"
+    },
+    "Computed-iEzsigndocumentStepsignaturetotal": {
+      "description": "The total number of steps in the signature filling phase",
+      "example": 2,
+      "type": "integer"
+    },
     "Computed-sAvatarUrl": {
       "description": "The url of the picture used as avatar",
       "example": "http://www.website.com/avatar.jpg",
       "pattern": "^(https|http):\\/\\/[^\\s\\/$.?#].[^\\s]*$",
+      "type": "string"
+    },
+    "Computed-sEzsigndocumentMD5initial": {
+      "description": "MD5 Hash of the initial PDF Document before signatures were applied to it.",
+      "example": "012345678901234567890123456789AB",
+      "type": "string"
+    },
+    "Computed-sEzsigndocumentMD5signed": {
+      "description": "MD5 Hash of the final PDF Document after all signatures were applied to it.",
+      "example": "012345678901234567890123456789AB",
       "type": "string"
     },
     "Computed-sUserName": {
@@ -1794,6 +1940,42 @@
       ],
       "type": "object"
     },
+    "Custom-Ezsignfoldersignerassociationstatus-Response": {
+      "description": "A Ezsignfoldersignerassociationstatus Object and children to create a complete structure",
+      "properties": {
+        "a_objEzsignsignaturestatus": {
+          "items": {
+            "$ref": "#/definitions/Custom-Ezsignsignaturestatus-Response"
+          },
+          "type": "array"
+        },
+        "fkiEzsignfoldersignerassociationID": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "sEzsignfoldersignerassociationstatusDescriptionX": {
+          "description": "The description of the Ezsignsigner",
+          "example": "John Doe",
+          "type": "string"
+        },
+        "sEzsignfoldersignerassociationstatusFirstname": {
+          "description": "The first name of the Ezsignsigner",
+          "example": "John",
+          "type": "string",
+          "x-deprecated": true
+        },
+        "sEzsignfoldersignerassociationstatusLastname": {
+          "description": "The last name of the Ezsignsigner",
+          "example": "Doe",
+          "type": "string",
+          "x-deprecated": true
+        }
+      },
+      "required": [
+        "fkiEzsignfoldersignerassociationID",
+        "a_objEzsignsignaturestatus"
+      ],
+      "type": "object"
+    },
     "Custom-Ezsignformfielderror-Response": {
       "description": "A Custom Ezsignformfield Object to contain an error list",
       "properties": {
@@ -1858,6 +2040,47 @@
       ],
       "type": "object"
     },
+    "Custom-Ezsignsignaturestatus-Response": {
+      "description": "A Ezsignsignaturestatus Object and children to create a complete structure",
+      "properties": {
+        "eEzsignsignaturestatusSteptype": {
+          "description": "Type of step",
+          "enum": [
+            "Form",
+            "Signature"
+          ],
+          "type": "string"
+        },
+        "iEzsignsignaturestatusConditional": {
+          "description": "The number of signature or form fields the Ezsignsigner need to sign or fill under current conditions.",
+          "example": 1,
+          "type": "integer"
+        },
+        "iEzsignsignaturestatusSigned": {
+          "description": "The number of signature or form fields the Ezsignsigner has already processed at the current step",
+          "example": 1,
+          "type": "integer"
+        },
+        "iEzsignsignaturestatusStep": {
+          "description": "The step at which the Ezsignsigner will be invited to sign or fill the form fields",
+          "example": 1,
+          "type": "integer"
+        },
+        "iEzsignsignaturestatusTotal": {
+          "description": "The total number of signature or form fields the Ezsignsigner must process at the current step",
+          "example": 2,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "eEzsignsignaturestatusSteptype",
+        "iEzsignsignaturestatusStep",
+        "iEzsignsignaturestatusTotal",
+        "iEzsignsignaturestatusSigned",
+        "iEzsignsignaturestatusConditional"
+      ],
+      "type": "object"
+    },
     "Field-bActivesessionAttachment": {
       "description": "Can access attachment when we clone a user",
       "example": false,
@@ -1886,6 +2109,11 @@
     "Field-bActivesessionRealestatecompleted": {
       "description": "Can access closed realestate folders when we clone a user",
       "example": false,
+      "type": "boolean"
+    },
+    "Field-bEzsigndocumentHassignedsignatures": {
+      "description": "If the Ezsigndocument contains signed signatures (From internal or external sources)",
+      "example": true,
       "type": "boolean"
     },
     "Field-bEzsignfoldersignerassociationReceivecopy": {
@@ -1962,9 +2190,24 @@
       "example": "2020-12-31 23:59:59",
       "type": "string"
     },
+    "Field-dtEzsigndocumentFirstsend": {
+      "description": "The date and time when the Ezsigndocument was first sent.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
+    "Field-dtEzsigndocumentLastsend": {
+      "description": "The date and time when the Ezsigndocument was sent the last time.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
     "Field-dtEzsignfolderDelayedsenddate": {
       "description": "The date and time at which the Ezsignfolder will be sent in the future.",
       "example": "2020-12-31T23:59:59.000Z",
+      "type": "string"
+    },
+    "Field-dtEzsignformCompleted": {
+      "description": "The date and time at which the Ezsignform has been completed.",
+      "example": "2020-12-31 23:59:59",
       "type": "string"
     },
     "Field-dtUserEzsignprepaidexpiration": {
@@ -2131,6 +2374,21 @@
       "example": "BADREQUEST",
       "type": "string"
     },
+    "Field-eEzsigndocumentStep": {
+      "description": "The signature step of the Ezsigndocument.",
+      "enum": [
+        "Unsent",
+        "Unsigned",
+        "PartiallySigned",
+        "DeclinedToSign",
+        "PrematurelyEnded",
+        "PendingCompletion",
+        "Completed",
+        "Disposed"
+      ],
+      "example": "Completed",
+      "type": "string"
+    },
     "Field-eEzsignfolderDocumentdependency": {
       "description": "Indicates if document dependencies apply to all users or just to Ezsignsigner",
       "enum": [
@@ -2226,6 +2484,30 @@
       ],
       "example": "EzsignUser",
       "type": "string"
+    },
+    "Field-iEzsigndocumentOrder": {
+      "description": "The order in which the Ezsigndocument will be presented to the signatory in the Ezsignfolder.",
+      "example": 1,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "Field-iEzsigndocumentPagetotal": {
+      "description": "The number of pages in the Ezsigndocument.",
+      "example": 4,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "Field-iEzsigndocumentSignaturesigned": {
+      "description": "The number of signatures that were signed in the document.",
+      "example": 3,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Field-iEzsigndocumentSignaturetotal": {
+      "description": "The number of total signatures that were requested in the Ezsigndocument.",
+      "example": 4,
+      "minimum": 0,
+      "type": "integer"
     },
     "Field-iEzsignfolderSendreminderfirstdays": {
       "description": "The number of days before the the first reminder sending",
@@ -2673,9 +2955,20 @@
       "example": "Doe",
       "type": "string"
     },
+    "Field-sUserLoginname": {
+      "description": "The login name of the User.",
+      "example": "JohnDoe",
+      "pattern": "^(?:([\\w.%+\\-!#$%&'*+\\/=?^`{|}~]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,20})|([a-zA-Z0-9]){1,32})$",
+      "type": "string"
+    },
     "Field-sUserlogintypeDescriptionX": {
       "description": "The description of the Userlogintype in the language of the requester",
       "example": "Email and phone or SMS",
+      "type": "string"
+    },
+    "Field-tEzsigndocumentDeclinedtosignreason": {
+      "description": "A custom text message that will contain the refusal message if the Ezsigndocument is declined to sign",
+      "example": "The conditions in the contract are different than those discuted",
       "type": "string"
     },
     "Field-tEzsignfolderMessage": {
@@ -3155,6 +3448,131 @@
       ],
       "type": "object"
     },
+    "ezsigndocument-ResponseCompound": {
+      "description": "An Ezsigndocument Object and children to create a complete structure",
+      "properties": {
+        "a_objEzsigndocumentdependency": {
+          "items": {
+            "$ref": "#/definitions/ezsigndocumentdependency-Response"
+          },
+          "type": "array"
+        },
+        "a_objEzsignfoldersignerassociationstatus": {
+          "items": {
+            "$ref": "#/definitions/Custom-Ezsignfoldersignerassociationstatus-Response"
+          },
+          "type": "array"
+        },
+        "bEzsigndocumentEzsignform": {
+          "$ref": "#/definitions/Computed-bEzsigndocumentEzsignform"
+        },
+        "bEzsigndocumentHassignedsignatures": {
+          "$ref": "#/definitions/Field-bEzsigndocumentHassignedsignatures"
+        },
+        "dtEzsigndocumentDuedate": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentDuedate"
+        },
+        "dtEzsigndocumentFirstsend": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentFirstsend"
+        },
+        "dtEzsigndocumentLastsend": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentLastsend"
+        },
+        "dtEzsignformCompleted": {
+          "$ref": "#/definitions/Field-dtEzsignformCompleted"
+        },
+        "eEzsigndocumentStep": {
+          "$ref": "#/definitions/Field-eEzsigndocumentStep"
+        },
+        "eEzsigndocumentSteptype": {
+          "$ref": "#/definitions/Computed-eEzsigndocumentSteptype"
+        },
+        "fkiEzsignfolderID": {
+          "$ref": "#/definitions/Field-pkiEzsignfolderID"
+        },
+        "fkiEzsignfoldersignerassociationIDDeclinedtosign": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "fkiLanguageID": {
+          "$ref": "#/definitions/Field-pkiLanguageID"
+        },
+        "iEzsigndocumentEzsigndiscussiontotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentEzsigndiscussiontotal"
+        },
+        "iEzsigndocumentEzsignsignatureattachmenttotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentEzsignsignatureattachmenttotal"
+        },
+        "iEzsigndocumentFormfieldtotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentFormfieldtotal"
+        },
+        "iEzsigndocumentOrder": {
+          "$ref": "#/definitions/Field-iEzsigndocumentOrder"
+        },
+        "iEzsigndocumentPagetotal": {
+          "$ref": "#/definitions/Field-iEzsigndocumentPagetotal"
+        },
+        "iEzsigndocumentSignaturesigned": {
+          "$ref": "#/definitions/Field-iEzsigndocumentSignaturesigned"
+        },
+        "iEzsigndocumentSignaturetotal": {
+          "$ref": "#/definitions/Field-iEzsigndocumentSignaturetotal"
+        },
+        "iEzsigndocumentStepformcurrent": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentStepformcurrent"
+        },
+        "iEzsigndocumentStepformtotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentStepformtotal"
+        },
+        "iEzsigndocumentStepsignatureCurrent": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentStepsignatureCurrent"
+        },
+        "iEzsigndocumentStepsignaturetotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentStepsignaturetotal"
+        },
+        "objAudit": {
+          "$ref": "#/definitions/Common-Audit"
+        },
+        "pkiEzsigndocumentID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        },
+        "sEzsigndocumentExternalid": {
+          "$ref": "#/definitions/Common-Format-ExternalID"
+        },
+        "sEzsigndocumentMD5initial": {
+          "$ref": "#/definitions/Computed-sEzsigndocumentMD5initial"
+        },
+        "sEzsigndocumentMD5signed": {
+          "$ref": "#/definitions/Computed-sEzsigndocumentMD5signed"
+        },
+        "sEzsigndocumentName": {
+          "$ref": "#/definitions/Field-sEzsigndocumentName"
+        },
+        "tEzsigndocumentDeclinedtosignreason": {
+          "$ref": "#/definitions/Field-tEzsigndocumentDeclinedtosignreason"
+        }
+      },
+      "required": [
+        "pkiEzsigndocumentID",
+        "fkiEzsignfolderID",
+        "dtEzsigndocumentDuedate",
+        "sEzsigndocumentName",
+        "eEzsigndocumentStep",
+        "iEzsigndocumentOrder",
+        "iEzsigndocumentPagetotal",
+        "iEzsigndocumentSignaturesigned",
+        "iEzsigndocumentSignaturetotal",
+        "iEzsigndocumentFormfieldtotal",
+        "iEzsigndocumentEzsignsignatureattachmenttotal",
+        "iEzsigndocumentEzsigndiscussiontotal",
+        "eEzsigndocumentSteptype",
+        "iEzsigndocumentStepformtotal",
+        "iEzsigndocumentStepformcurrent",
+        "iEzsigndocumentStepsignaturetotal",
+        "iEzsigndocumentStepsignatureCurrent",
+        "a_objEzsignfoldersignerassociationstatus"
+      ],
+      "type": "object"
+    },
     "ezsigndocument-applyEzsigntemplate-v2-Request": {
       "description": "Request for POST /2/object/ezsigndocument/{pkiEzsigndocumentID}/applyezsigntemplate",
       "properties": {
@@ -3503,6 +3921,22 @@
       ],
       "type": "object"
     },
+    "ezsigndocumentdependency-Response": {
+      "description": "An Ezsigndocumentdependency Object",
+      "properties": {
+        "fkiEzsigndocumentIDdependency": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        },
+        "pkiEzsigndocumentdependencyID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentdependencyID"
+        }
+      },
+      "required": [
+        "pkiEzsigndocumentdependencyID",
+        "fkiEzsigndocumentIDdependency"
+      ],
+      "type": "object"
+    },
     "ezsignfolder-RequestCompound": {
       "description": "An Ezsignfolder Object and children to create a complete structure",
       "properties": {
@@ -3703,6 +4137,40 @@
       },
       "required": [
         "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getEzsigndocuments-v1-Response": {
+      "description": "Response for GET /1/object/ezsignfolder/{pkiEzsignfolder}/getEzsigndocuments",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsignfolder-getEzsigndocuments-v1-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getEzsigndocuments-v1-Response-mPayload": {
+      "description": "Payload for GET /1/object/ezsignfolder/{pkiEzsignfolder}/getEzsigndocuments",
+      "properties": {
+        "a_objEzsigndocument": {
+          "items": {
+            "$ref": "#/definitions/ezsigndocument-ResponseCompound"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_objEzsigndocument"
       ],
       "type": "object"
     },
