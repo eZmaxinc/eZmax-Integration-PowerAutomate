@@ -254,6 +254,58 @@
         "summary": "Retrieve a URL to download documents."
       }
     },
+    "/1/object/ezsigndocument/{pkiEzsigndocumentID}/prefillEzsignform": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsigndocument",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsigndocumentID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-prefillEzsignform-v1-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-prefillEzsignform-v1-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "Using this endpoint, you can prefill an Ezsignform.",
+        "operationId": "Ezsigndocument_PrefillEzsignform_V1",
+        "summary": "Prefill an Ezsignform",
+        "x-ms-visibility": "advanced"
+      }
+    },
     "/1/object/ezsignfolder/{pkiEzsignfolderID}/dispose": {
       "post": {
         "consumes": [
@@ -2081,6 +2133,27 @@
       ],
       "type": "object"
     },
+    "Custom-PrefillEzsignformValue-Request": {
+      "description": "A Custom PrefillEzsignformValue Object",
+      "properties": {
+        "bEzsignformfieldSelected": {
+          "$ref": "#/definitions/Field-bEzsignformfieldSelected"
+        },
+        "sEzsignformfieldEnteredvalue": {
+          "$ref": "#/definitions/Field-sEzsignformfieldEnteredvalue"
+        },
+        "sEzsignformfieldLabel": {
+          "$ref": "#/definitions/Field-sEzsignformfieldLabel"
+        },
+        "sEzsignformfieldgroupLabel": {
+          "$ref": "#/definitions/Field-sEzsignformfieldgroupLabel"
+        }
+      },
+      "required": [
+        "sEzsignformfieldgroupLabel"
+      ],
+      "type": "object"
+    },
     "Field-bActivesessionAttachment": {
       "description": "Can access attachment when we clone a user",
       "example": false,
@@ -2123,6 +2196,10 @@
     "Field-bEzsignfoldertypeIsactive": {
       "description": "Whether the Ezsignfoldertype is active or not",
       "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignformfieldSelected": {
+      "description": "Whether the Ezsignformfield is selected or not by default.\n\nThis can only be set if eEzsignformfieldgroupType is **Checkbox** or **Radio**",
       "type": "boolean"
     },
     "Field-bEzsigntemplateIsactive": {
@@ -2601,6 +2678,13 @@
       "minimum": 0,
       "type": "integer"
     },
+    "Field-pkiEzsignimportdocumentID": {
+      "description": "The unique ID of the Ezsignimportdocument",
+      "example": 40,
+      "maximum": 16777215,
+      "minimum": 0,
+      "type": "integer"
+    },
     "Field-pkiEzsignsignatureID": {
       "description": "The unique ID of the Ezsignsignature",
       "example": 49,
@@ -2877,9 +2961,21 @@
       "example": "Default",
       "type": "string"
     },
+    "Field-sEzsignformfieldEnteredvalue": {
+      "description": "This is the value enterred for the Ezsignformfield\n\nThis can only be set if eEzsignformfieldgroupType is **Dropdown**, **Text** or **Textarea**",
+      "example": "Montreal",
+      "type": "string"
+    },
     "Field-sEzsignformfieldLabel": {
       "description": "The Label for the Ezsignformfield",
       "example": "Peanuts",
+      "type": "string"
+    },
+    "Field-sEzsignformfieldgroupLabel": {
+      "description": "The Label for the Ezsignformfieldgroup",
+      "example": "Allergies",
+      "maxLength": 50,
+      "minLength": 1,
       "type": "string"
     },
     "Field-sEzsigntemplateDescription": {
@@ -3396,6 +3492,7 @@
           "description": "Indicates where to look for the document binary content.",
           "enum": [
             "Base64",
+            "Ezsignimportdocument",
             "Ezsigntemplate",
             "Url"
           ],
@@ -3406,6 +3503,9 @@
         },
         "fkiEzsignfoldersignerassociationID": {
           "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "fkiEzsignimportdocumentID": {
+          "$ref": "#/definitions/Field-pkiEzsignimportdocumentID"
         },
         "fkiEzsigntemplateID": {
           "$ref": "#/definitions/Field-pkiEzsigntemplateID"
@@ -3904,6 +4004,36 @@
           "$ref": "#/definitions/Field-pkiEzsigntemplateglobalID"
         }
       },
+      "type": "object"
+    },
+    "ezsigndocument-prefillEzsignform-v1-Request": {
+      "description": "Request for POST /1/object/ezsigndocument/{pkiEzsigndocumentID}/prefillEzsignform",
+      "properties": {
+        "a_objPrefillezsignformvalue": {
+          "items": {
+            "$ref": "#/definitions/Custom-PrefillEzsignformValue-Request"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_objPrefillezsignformvalue"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-prefillEzsignform-v1-Response": {
+      "description": "Response for POST /1/object/ezsigndocument/{pkiEzsigndocumentID}/prefillEzsignform",
+      "properties": {
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "objDebugPayload"
+      ],
       "type": "object"
     },
     "ezsigndocumentdependency-RequestCompound": {
