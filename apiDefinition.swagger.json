@@ -13,7 +13,7 @@
     },
     "termsOfService": "https://www.ezmax.ca/TODO",
     "title": "eZmax API Definition (PowerAutomate)",
-    "version": "1.2.2"
+    "version": "1.3.0"
   },
   "host": "prod.api.appcluster01.ca-central-1.ezmax.com",
   "basePath": "/rest",
@@ -94,7 +94,7 @@
         },
         "description": "This endpoint returns the communication body.",
         "operationId": "Communication_GetCommunicationBody_V1",
-        "summary": "Retrieve the communication body."
+        "summary": "Retrieve the communication body"
       }
     },
     "/1/object/ezsigndocument/{pkiEzsigndocumentID}/applyEzsigntemplateglobal": {
@@ -145,7 +145,7 @@
         },
         "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
         "operationId": "Ezsigndocument_ApplyEzsigntemplateglobal_V1",
-        "summary": "Apply an Ezsigntemplateglobal to the Ezsigndocument.",
+        "summary": "Apply an Ezsigntemplateglobal to the Ezsigndocument",
         "x-ms-visibility": "important"
       }
     },
@@ -195,7 +195,8 @@
             }
           }
         },
-        "description": "Using this endpoint, you can create multiple Ezsignsignatures/Ezsignformfieldgroups positioned by word at the same time.",
+        "deprecated": true,
+        "description": "Using this endpoint, you can create multiple Ezsignsignatures/Ezsignformfieldgroups positioned by word at the same time.\n\nMajor step overhaul.\n\nEndpoints that existed before version 1.3 do not allow you to combine forms and signatures in the same step. The step numbers are different from those indicated by endpoints added since version 1.3. This endpoint is compatible with endpoints that existed before 1.3 but are not compatible with those added since 1.3.",
         "operationId": "Ezsigndocument_CreateEzsignelementsPositionedByWord_V1",
         "summary": "Create multiple Ezsignsignatures/Ezsignformfieldgroups"
       }
@@ -215,8 +216,9 @@
             "type": "integer"
           },
           {
-            "description": "The type of document to retrieve.\n\n1. **Initial** Is the initial document before any signature were applied.\n2. **SignatureReady** Is the version containing the annotations/form to show the signer.\n3. **Signed** Is the final document once all signatures were applied in current document if eEzsignfolderCompletion is PerEzsigndocument.<br>\n    Is the final document once all signatures were applied in all documents if eEzsignfolderCompletion is PerEzsignfolder.\n4. **Proofdocument** Is the evidence report.\n5. **Proof** Is the complete evidence archive including all of the above and more.\n",
+            "description": "The type of document to retrieve.\n\n1. **original** Is the original document before any repair or conversion were applied. **Initial** Is the initial document after initial signature were applied.\n2. **SignatureReady** Is the version containing the annotations/form to show the signer.\n3. **Signed** Is the final document once all signatures were applied in current document if eEzsignfolderCompletion is PerEzsigndocument.<br>\n    Is the final document once all signatures were applied in all documents if eEzsignfolderCompletion is PerEzsignfolder.\n4. **Proofdocument** Is the evidence report.\n5. **Proof** Is the complete evidence archive including all of the above and more.\n",
             "enum": [
+              "Original",
               "Initial",
               "SignatureReady",
               "Signed",
@@ -251,7 +253,7 @@
         },
         "description": "This endpoint returns URLs to different files that can be downloaded during the signing process.\n\nThese links will expire after 5 minutes so the download of the file should be made soon after retrieving the link.",
         "operationId": "Ezsigndocument_GetDownloadUrl_V1",
-        "summary": "Retrieve a URL to download documents."
+        "summary": "Retrieve a URL to download documents"
       }
     },
     "/1/object/ezsigndocument/{pkiEzsigndocumentID}/prefillEzsignform": {
@@ -300,7 +302,7 @@
             }
           }
         },
-        "description": "Using this endpoint, you can prefill an Ezsignform.",
+        "description": "Using this endpoint, you can prefill an Ezsignform.\n\nTo fill Ezsignformfield with type **Dropdown**, **Text**, **Textarea**, **Checkbox**, **Date**, **Number**, you must provide properties sEzsignformfieldgroupLabel and sEzsignformfieldLabel.\n\nTo fill Ezsignformfield with type **Radio**, you must provide only the property sEzsignformfieldgroupLabel.\n\nIn **PowerAutomate** if you need to add a line feed in sEzsignformfieldEnteredvalue, you should do it like this: concat('string1',decodeUriComponent('%0A'),'string2',decodeUriComponent('%0A'),'string3')",
         "operationId": "Ezsigndocument_PrefillEzsignform_V1",
         "summary": "Prefill an Ezsignform",
         "x-ms-visibility": "advanced"
@@ -386,7 +388,8 @@
             }
           }
         },
-        "description": "",
+        "deprecated": true,
+        "description": "Major step overhaul.\n\nEndpoints that existed before version 1.3 do not allow you to combine forms and signatures in the same step. The step numbers are different from those indicated by endpoints added since version 1.3. This endpoint is compatible with endpoints that existed before 1.3 but are not compatible with those added since 1.3.",
         "operationId": "Ezsignfolder_GetEzsigndocuments_V1",
         "summary": "Retrieve an existing Ezsignfolder's Ezsigndocuments",
         "x-ms-visibility": "advanced"
@@ -523,8 +526,59 @@
         },
         "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
         "operationId": "Ezsigndocument_ApplyEzsigntemplate_V2",
-        "summary": "Apply an Ezsigntemplate to the Ezsigndocument.",
+        "summary": "Apply an Ezsigntemplate to the Ezsigndocument",
         "x-ms-visibility": "important"
+      }
+    },
+    "/2/object/ezsigndocument/{pkiEzsigndocumentID}/createEzsignelementsPositionedByWord": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsigndocument",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsigndocumentID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-createEzsignelementsPositionedByWord-v2-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-createEzsignelementsPositionedByWord-v2-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "Using this endpoint, you can create multiple Ezsignsignatures/Ezsignformfieldgroups positioned by word at the same time.",
+        "operationId": "Ezsigndocument_CreateEzsignelementsPositionedByWord_V2",
+        "summary": "Create multiple Ezsignsignatures/Ezsignformfieldgroups"
       }
     },
     "/2/object/ezsignfolder": {
@@ -558,6 +612,41 @@
         "operationId": "Ezsignfolder_CreateObject_V2",
         "summary": "Create a new Ezsignfolder",
         "x-ms-visibility": "important"
+      }
+    },
+    "/2/object/ezsignfolder/{pkiEzsignfolderID}/getEzsigndocuments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsignfolder",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsignfolderID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-getEzsigndocuments-v2-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "",
+        "operationId": "Ezsignfolder_GetEzsigndocuments_V2",
+        "summary": "Retrieve an existing Ezsignfolder's Ezsigndocuments",
+        "x-ms-visibility": "advanced"
       }
     },
     "/2/object/ezsignfolder/{pkiEzsignfolderID}/reorder": {
@@ -1268,6 +1357,7 @@
             "enum": [
               "All",
               "Ezsignfoldertype",
+              "EzsignfoldertypeReassign",
               "Ezsigntemplatepublic"
             ],
             "in": "path",
@@ -1686,7 +1776,7 @@
         "sTemporaryFileUrl": {
           "description": "The Temporary File Url of the document that was uploaded. That url can be reused instead of uploading the file again.",
           "example": "http://www.example.com/document.pdf",
-          "pattern": "^(https|http):\\/\\/[^\\s\\/$.?#].[^\\s]*$",
+          "pattern": "^https:\\/\\/[^\\s\\/$.?#].[^\\s]*$",
           "type": "string"
         }
       },
@@ -1872,6 +1962,11 @@
       "minimum": 0,
       "type": "integer"
     },
+    "Computed-iEzsigndocumentStepcurrent": {
+      "description": "The current step",
+      "example": 1,
+      "type": "integer"
+    },
     "Computed-iEzsigndocumentStepformcurrent": {
       "description": "The current step in the form filling phase",
       "example": 1,
@@ -1892,6 +1987,11 @@
       "example": 2,
       "type": "integer"
     },
+    "Computed-iEzsigndocumentSteptotal": {
+      "description": "The total number of steps",
+      "example": 2,
+      "type": "integer"
+    },
     "Computed-sAvatarUrl": {
       "description": "The url of the picture used as avatar",
       "example": "http://www.website.com/avatar.jpg",
@@ -1901,11 +2001,13 @@
     "Computed-sEzsigndocumentMD5initial": {
       "description": "MD5 Hash of the initial PDF Document before signatures were applied to it.",
       "example": "012345678901234567890123456789AB",
+      "pattern": "^.{32}$",
       "type": "string"
     },
     "Computed-sEzsigndocumentMD5signed": {
       "description": "MD5 Hash of the final PDF Document after all signatures were applied to it.",
       "example": "012345678901234567890123456789AB",
+      "pattern": "^.{32}$",
       "type": "string"
     },
     "Computed-sUserName": {
@@ -1993,6 +2095,42 @@
       "type": "object"
     },
     "Custom-Ezsignfoldersignerassociationstatus-Response": {
+      "description": "A Ezsignfoldersignerassociationstatus Object and children to create a complete structure",
+      "properties": {
+        "a_objEzsignsignaturestatus": {
+          "items": {
+            "$ref": "#/definitions/Custom-Ezsignsignaturestatus-Response"
+          },
+          "type": "array"
+        },
+        "fkiEzsignfoldersignerassociationID": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "sEzsignfoldersignerassociationstatusDescriptionX": {
+          "description": "The description of the Ezsignsigner",
+          "example": "John Doe",
+          "type": "string"
+        },
+        "sEzsignfoldersignerassociationstatusFirstname": {
+          "description": "The first name of the Ezsignsigner",
+          "example": "John",
+          "type": "string",
+          "x-deprecated": true
+        },
+        "sEzsignfoldersignerassociationstatusLastname": {
+          "description": "The last name of the Ezsignsigner",
+          "example": "Doe",
+          "type": "string",
+          "x-deprecated": true
+        }
+      },
+      "required": [
+        "fkiEzsignfoldersignerassociationID",
+        "a_objEzsignsignaturestatus"
+      ],
+      "type": "object"
+    },
+    "Custom-Ezsignfoldersignerassociationstatus-ResponseV3": {
       "description": "A Ezsignfoldersignerassociationstatus Object and children to create a complete structure",
       "properties": {
         "a_objEzsignsignaturestatus": {
@@ -2189,6 +2327,11 @@
       "example": true,
       "type": "boolean"
     },
+    "Field-bEzsigndocumentSendtoged": {
+      "description": "Whether the Ezsigndocument was copied to EDM",
+      "example": false,
+      "type": "boolean"
+    },
     "Field-bEzsignfoldersignerassociationReceivecopy": {
       "description": "If this flag is true. The signatory will receive a copy of every signed Ezsigndocument even if it ain't required to sign the document.",
       "type": "boolean"
@@ -2242,6 +2385,11 @@
       "example": true,
       "type": "boolean"
     },
+    "Field-bUserAddmeinezsignfolder": {
+      "description": "Whether if I want to automatically add myself during the creation of Ezsignfolder of which I am the owner",
+      "example": true,
+      "type": "boolean"
+    },
     "Field-bUserEzsigntrial": {
       "description": "Whether the User's eZsign subscription is a trial",
       "example": false,
@@ -2290,6 +2438,12 @@
     "Field-dtUserEzsignprepaidexpiration": {
       "description": "The eZsign prepaid expiration date",
       "example": "2020-12-31",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+      "type": "string"
+    },
+    "Field-dtUserNpsrequest": {
+      "description": "The date at which the NPS questionnaire will be show",
+      "example": "2020-12-31 23:59:59",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
       "type": "string"
     },
@@ -2458,6 +2612,7 @@
         "Unsigned",
         "PartiallySigned",
         "DeclinedToSign",
+        "PendingPrematurelyEnded",
         "PrematurelyEnded",
         "PendingCompletion",
         "Completed",
@@ -2604,6 +2759,12 @@
       "description": "The code of the Franchiseoffice",
       "example": "Default",
       "type": "string"
+    },
+    "Field-iUserFrontendgoal": {
+      "description": "Goals save as bit wise (one bit per goal)",
+      "example": 256,
+      "minimum": 0,
+      "type": "integer"
     },
     "Field-iUserInterfacecolor": {
       "description": "The int32 representation of the interface color. For example, RGB color #39435B would be 3752795",
@@ -3001,8 +3162,8 @@
       "type": "string"
     },
     "Field-sEzsigntemplatesigner": {
-      "description": "The First name of the user",
-      "example": "John",
+      "description": "The role of the Ezsigntemplatesigner",
+      "example": "Buyer",
       "type": "string"
     },
     "Field-sEzsigntsarequirementDescriptionX": {
@@ -3136,6 +3297,9 @@
         "dtUserEzsignprepaidexpiration": {
           "$ref": "#/definitions/Field-dtUserEzsignprepaidexpiration"
         },
+        "dtUserNpsrequest": {
+          "$ref": "#/definitions/Field-dtUserNpsrequest"
+        },
         "eActivesessionEzsign": {
           "$ref": "#/definitions/Field-eActivesessionEzsign"
         },
@@ -3235,6 +3399,9 @@
     "activesession-ResponseCompound-User": {
       "description": "An Activesession->User Object and children to create a complete structure",
       "properties": {
+        "bUserAddmeinezsignfolder": {
+          "$ref": "#/definitions/Field-bUserAddmeinezsignfolder"
+        },
         "bUserInterfacedark": {
           "$ref": "#/definitions/Field-bUserInterfacedark"
         },
@@ -3243,6 +3410,9 @@
         },
         "fkiTimezoneID": {
           "$ref": "#/definitions/Field-pkiTimezoneID"
+        },
+        "iUserFrontendgoal": {
+          "$ref": "#/definitions/Field-iUserFrontendgoal"
         },
         "iUserInterfacecolor": {
           "$ref": "#/definitions/Field-iUserInterfacecolor"
@@ -3271,10 +3441,12 @@
         "fkiTimezoneID",
         "sUserFirstname",
         "sUserLastname",
+        "bUserAddmeinezsignfolder",
         "eUserEzsignsendreminderfrequency",
         "iUserInterfacecolor",
         "bUserInterfacedark",
-        "iUserListresult"
+        "iUserListresult",
+        "iUserFrontendgoal"
       ],
       "type": "object"
     },
@@ -3340,6 +3512,9 @@
         },
         "dtUserEzsignprepaidexpiration": {
           "$ref": "#/definitions/Field-dtUserEzsignprepaidexpiration"
+        },
+        "dtUserNpsrequest": {
+          "$ref": "#/definitions/Field-dtUserNpsrequest"
         },
         "eActivesessionEzsign": {
           "$ref": "#/definitions/Field-eActivesessionEzsign"
@@ -3569,6 +3744,9 @@
         "bEzsigndocumentHassignedsignatures": {
           "$ref": "#/definitions/Field-bEzsigndocumentHassignedsignatures"
         },
+        "bEzsigndocumentSendtoged": {
+          "$ref": "#/definitions/Field-bEzsigndocumentSendtoged"
+        },
         "dtEzsigndocumentDuedate": {
           "$ref": "#/definitions/Field-dtEzsigndocumentDuedate"
         },
@@ -3669,6 +3847,122 @@
         "iEzsigndocumentStepformcurrent",
         "iEzsigndocumentStepsignaturetotal",
         "iEzsigndocumentStepsignatureCurrent",
+        "a_objEzsignfoldersignerassociationstatus"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-ResponseCompoundV3": {
+      "description": "An Ezsigndocument Object and children to create a complete structure",
+      "properties": {
+        "a_objEzsigndocumentdependency": {
+          "items": {
+            "$ref": "#/definitions/ezsigndocumentdependency-Response"
+          },
+          "type": "array"
+        },
+        "a_objEzsignfoldersignerassociationstatus": {
+          "items": {
+            "$ref": "#/definitions/Custom-Ezsignfoldersignerassociationstatus-ResponseV3"
+          },
+          "type": "array"
+        },
+        "bEzsigndocumentEzsignform": {
+          "$ref": "#/definitions/Computed-bEzsigndocumentEzsignform"
+        },
+        "bEzsigndocumentHassignedsignatures": {
+          "$ref": "#/definitions/Field-bEzsigndocumentHassignedsignatures"
+        },
+        "bEzsigndocumentSendtoged": {
+          "$ref": "#/definitions/Field-bEzsigndocumentSendtoged"
+        },
+        "dtEzsigndocumentDuedate": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentDuedate"
+        },
+        "dtEzsigndocumentFirstsend": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentFirstsend"
+        },
+        "dtEzsigndocumentLastsend": {
+          "$ref": "#/definitions/Field-dtEzsigndocumentLastsend"
+        },
+        "dtEzsignformCompleted": {
+          "$ref": "#/definitions/Field-dtEzsignformCompleted"
+        },
+        "eEzsigndocumentStep": {
+          "$ref": "#/definitions/Field-eEzsigndocumentStep"
+        },
+        "fkiEzsignfolderID": {
+          "$ref": "#/definitions/Field-pkiEzsignfolderID"
+        },
+        "fkiEzsignfoldersignerassociationIDDeclinedtosign": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "fkiLanguageID": {
+          "$ref": "#/definitions/Field-pkiLanguageID"
+        },
+        "iEzsigndocumentEzsigndiscussiontotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentEzsigndiscussiontotal"
+        },
+        "iEzsigndocumentEzsignsignatureattachmenttotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentEzsignsignatureattachmenttotal"
+        },
+        "iEzsigndocumentFormfieldtotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentFormfieldtotal"
+        },
+        "iEzsigndocumentOrder": {
+          "$ref": "#/definitions/Field-iEzsigndocumentOrder"
+        },
+        "iEzsigndocumentPagetotal": {
+          "$ref": "#/definitions/Field-iEzsigndocumentPagetotal"
+        },
+        "iEzsigndocumentSignaturesigned": {
+          "$ref": "#/definitions/Field-iEzsigndocumentSignaturesigned"
+        },
+        "iEzsigndocumentSignaturetotal": {
+          "$ref": "#/definitions/Field-iEzsigndocumentSignaturetotal"
+        },
+        "iEzsigndocumentStepcurrent": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentStepcurrent"
+        },
+        "iEzsigndocumentSteptotal": {
+          "$ref": "#/definitions/Computed-iEzsigndocumentSteptotal"
+        },
+        "objAudit": {
+          "$ref": "#/definitions/Common-Audit"
+        },
+        "pkiEzsigndocumentID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        },
+        "sEzsigndocumentExternalid": {
+          "$ref": "#/definitions/Common-Format-ExternalID"
+        },
+        "sEzsigndocumentMD5initial": {
+          "$ref": "#/definitions/Computed-sEzsigndocumentMD5initial"
+        },
+        "sEzsigndocumentMD5signed": {
+          "$ref": "#/definitions/Computed-sEzsigndocumentMD5signed"
+        },
+        "sEzsigndocumentName": {
+          "$ref": "#/definitions/Field-sEzsigndocumentName"
+        },
+        "tEzsigndocumentDeclinedtosignreason": {
+          "$ref": "#/definitions/Field-tEzsigndocumentDeclinedtosignreason"
+        }
+      },
+      "required": [
+        "pkiEzsigndocumentID",
+        "fkiEzsignfolderID",
+        "dtEzsigndocumentDuedate",
+        "sEzsigndocumentName",
+        "eEzsigndocumentStep",
+        "iEzsigndocumentOrder",
+        "iEzsigndocumentPagetotal",
+        "iEzsigndocumentSignaturesigned",
+        "iEzsigndocumentSignaturetotal",
+        "iEzsigndocumentFormfieldtotal",
+        "iEzsigndocumentEzsignsignatureattachmenttotal",
+        "iEzsigndocumentEzsigndiscussiontotal",
+        "iEzsigndocumentSteptotal",
+        "iEzsigndocumentStepcurrent",
         "a_objEzsignfoldersignerassociationstatus"
       ],
       "type": "object"
@@ -3834,6 +4128,69 @@
     },
     "ezsigndocument-createEzsignelementsPositionedByWord-v1-Response-mPayload": {
       "description": "Payload for POST /1/object/ezsigndocument/{pkiEzsigndocumentID}/createEzsignelementsPositionedByWord",
+      "properties": {
+        "a_pkiEzsignformfieldgroupID": {
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignformfieldgroupID"
+          },
+          "type": "array"
+        },
+        "a_pkiEzsignsignatureID": {
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignsignatureID"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_pkiEzsignsignatureID",
+        "a_pkiEzsignformfieldgroupID"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-createEzsignelementsPositionedByWord-v2-Request": {
+      "description": "Request for POST /2/object/ezsigndocument/{pkiEzsigndocumentID}/createEzsignelementsPositionedByWord",
+      "properties": {
+        "a_objEzsignformfieldgroup": {
+          "items": {
+            "$ref": "#/definitions/Custom-EzsignformfieldgroupCreateEzsignelementsPositionedByWord-Request"
+          },
+          "type": "array"
+        },
+        "a_objEzsignsignature": {
+          "items": {
+            "$ref": "#/definitions/Custom-EzsignsignatureCreateEzsignelementsPositionedByWord-Request"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_objEzsignformfieldgroup",
+        "a_objEzsignsignature"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-createEzsignelementsPositionedByWord-v2-Response": {
+      "description": "Response for POST /2/object/ezsigndocument/{pkiEzsigndocumentID}/createEzsignelementsPositionedByWord",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsigndocument-createEzsignelementsPositionedByWord-v2-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-createEzsignelementsPositionedByWord-v2-Response-mPayload": {
+      "description": "Payload for POST /2/object/ezsigndocument/{pkiEzsigndocumentID}/createEzsignelementsPositionedByWord",
       "properties": {
         "a_pkiEzsignformfieldgroupID": {
           "items": {
@@ -4295,6 +4652,40 @@
         "a_objEzsigndocument": {
           "items": {
             "$ref": "#/definitions/ezsigndocument-ResponseCompound"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_objEzsigndocument"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getEzsigndocuments-v2-Response": {
+      "description": "Response for GET /2/object/ezsignfolder/{pkiEzsignfolder}/getEzsigndocuments",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsignfolder-getEzsigndocuments-v2-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getEzsigndocuments-v2-Response-mPayload": {
+      "description": "Payload for GET /2/object/ezsignfolder/{pkiEzsignfolder}/getEzsigndocuments",
+      "properties": {
+        "a_objEzsigndocument": {
+          "items": {
+            "$ref": "#/definitions/ezsigndocument-ResponseCompoundV3"
           },
           "type": "array"
         }
