@@ -1775,7 +1775,7 @@
         },
         "sTemporaryFileUrl": {
           "description": "The Temporary File Url of the document that was uploaded. That url can be reused instead of uploading the file again.",
-          "example": "http://www.example.com/document.pdf",
+          "example": "https://www.example.com/document.pdf",
           "pattern": "^https:\\/\\/[^\\s\\/$.?#].[^\\s]*$",
           "type": "string"
         }
@@ -2443,7 +2443,7 @@
     },
     "Field-dtUserNpsrequest": {
       "description": "The date at which the NPS questionnaire will be show",
-      "example": "2020-12-31 23:59:59",
+      "example": "2020-12-31",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
       "type": "string"
     },
@@ -2505,6 +2505,7 @@
       "enum": [
         "AgentBroker",
         "Assistant",
+        "Employee",
         "EzsignSigner",
         "EzsignUser",
         "Normal"
@@ -3718,8 +3719,7 @@
         "fkiEzsignfolderID",
         "fkiLanguageID",
         "sEzsigndocumentName",
-        "eEzsigndocumentSource",
-        "dtEzsigndocumentDuedate"
+        "eEzsigndocumentSource"
       ],
       "type": "object"
     },
