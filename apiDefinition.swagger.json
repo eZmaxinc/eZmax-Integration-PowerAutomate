@@ -143,6 +143,7 @@
             }
           }
         },
+        "deprecated": true,
         "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
         "operationId": "Ezsigndocument_ApplyEzsigntemplateglobal_V1",
         "summary": "Apply an Ezsigntemplateglobal to the Ezsigndocument",
@@ -359,6 +360,57 @@
         "summary": "Dispose the Ezsignfolder"
       }
     },
+    "/1/object/ezsignfolder/{pkiEzsignfolderID}/duplicate": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsignfolder",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsignfolderID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-duplicate-v1-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-duplicate-v1-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "",
+        "operationId": "Ezsignfolder_Duplicate_V1",
+        "summary": "Duplicate the Ezsignfolder"
+      }
+    },
     "/1/object/ezsignfolder/{pkiEzsignfolderID}/getEzsigndocuments": {
       "get": {
         "produces": [
@@ -524,9 +576,62 @@
             }
           }
         },
+        "deprecated": true,
         "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
         "operationId": "Ezsigndocument_ApplyEzsigntemplate_V2",
         "summary": "Apply an Ezsigntemplate to the Ezsigndocument",
+        "x-ms-visibility": "important"
+      }
+    },
+    "/2/object/ezsigndocument/{pkiEzsigndocumentID}/applyEzsigntemplateglobal": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsigndocument",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsigndocumentID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-applyEzsigntemplateglobal-v2-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-applyEzsigntemplateglobal-v2-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
+        "operationId": "Ezsigndocument_ApplyEzsigntemplateglobal_V2",
+        "summary": "Apply an Ezsigntemplateglobal to the Ezsigndocument",
         "x-ms-visibility": "important"
       }
     },
@@ -1285,6 +1390,7 @@
             "description": "The type of Users to return",
             "enum": [
               "AgentBrokerAssistant",
+              "AgentBrokerEmployeeEzsignUserNormalWithoutEzmaxpartner",
               "AgentBrokerEmployeeEzsignUserNormal",
               "AgentBrokerEmployeeNormalBuiltIn",
               "AgentBrokerEzsignuserNormal",
@@ -1468,6 +1574,58 @@
         "x-ms-visibility": "important"
       }
     },
+    "/3/object/ezsigndocument/{pkiEzsigndocumentID}/applyEzsigntemplate": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsigndocument",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsigndocumentID",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-applyEzsigntemplate-v3-Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsigndocument-applyEzsigntemplate-v3-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          },
+          "422": {
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "This endpoint applies a predefined template to the ezsign document.\nThis allows to automatically apply all the form and signature fields on a document in a single step.\n\nThe document must not already have fields otherwise an error will be returned.",
+        "operationId": "Ezsigndocument_ApplyEzsigntemplate_V3",
+        "summary": "Apply an Ezsigntemplate to the Ezsigndocument",
+        "x-ms-visibility": "important"
+      }
+    },
     "/3/object/ezsignfolder": {
       "post": {
         "consumes": [
@@ -1498,6 +1656,40 @@
         "operationId": "Ezsignfolder_CreateObject_V3",
         "summary": "Create a new Ezsignfolder",
         "x-ms-visibility": "important"
+      }
+    },
+    "/3/object/ezsignfolder/{pkiEzsignfolderID}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The unique ID of the Ezsignfolder",
+            "in": "path",
+            "minimum": 0,
+            "name": "pkiEzsignfolderID",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfolder-getObject-v3-Response"
+            }
+          },
+          "404": {
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "schema": {
+              "$ref": "#/definitions/Common-Response-Error"
+            }
+          }
+        },
+        "description": "",
+        "operationId": "Ezsignfolder_GetObject_V3",
+        "summary": "Retrieve an existing Ezsignfolder"
       }
     },
     "/3/object/ezsignfolder/{pkiEzsignfolderID}/send": {
@@ -1930,10 +2122,35 @@
       ],
       "type": "object"
     },
+    "Computed-bActivesessionMaillinglistrequest": {
+      "description": "If you need to ask which mailing lists this user wants to subscribe to",
+      "example": true,
+      "type": "boolean"
+    },
     "Computed-bEzsigndocumentEzsignform": {
       "description": "If the Ezsigndocument contains an Ezsignform or not",
       "example": true,
       "type": "boolean"
+    },
+    "Computed-bEzsignfolderIsdisposable": {
+      "description": "If the Ezsigndocument can be disposed",
+      "example": false,
+      "type": "boolean"
+    },
+    "Computed-dtEzsignfolderDuedate": {
+      "description": "The maximum date and time at which the Ezsignfolder can be signed.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
+    "Computed-dtEzsignfolderScheduledarchive": {
+      "description": "The scheduled date and time at which the Ezsignfolder should be archived.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
+    "Computed-dtEzsignfolderScheduleddispose": {
+      "description": "The scheduled date at which the Ezsignfolder should be Disposed.",
+      "example": "2020-12-31",
+      "type": "string"
     },
     "Computed-eEzsigndocumentSteptype": {
       "description": "Indicates whether the current step is a form or signatures.",
@@ -1943,6 +2160,17 @@
         "None"
       ],
       "example": "Sign",
+      "type": "string"
+    },
+    "Computed-eEzsignfolderAccess": {
+      "description": "Indicates the user's access level to this folder.",
+      "enum": [
+        "Signer",
+        "Read",
+        "Modify",
+        "Full"
+      ],
+      "example": "Full",
       "type": "string"
     },
     "Computed-iEzsigndocumentEzsigndiscussiontotal": {
@@ -1960,11 +2188,6 @@
       "description": "The number of total Ezsignformfield that were requested in the Ezsigndocument.",
       "example": 4,
       "minimum": 0,
-      "type": "integer"
-    },
-    "Computed-iEzsigndocumentStepcurrent": {
-      "description": "The current step",
-      "example": 1,
       "type": "integer"
     },
     "Computed-iEzsigndocumentStepformcurrent": {
@@ -2094,6 +2317,27 @@
       ],
       "type": "object"
     },
+    "Custom-EzsigndocumentDuplicate-Request": {
+      "description": "An Ezsigndocument Object in the context of a duplicate path",
+      "properties": {
+        "eEzsigndocumentVersion": {
+          "description": "Which version of the Ezsigndocument you would like to copy",
+          "enum": [
+            "Initial",
+            "Signed"
+          ],
+          "type": "string"
+        },
+        "pkiEzsigndocumentID": {
+          "$ref": "#/definitions/Field-pkiEzsigndocumentID"
+        }
+      },
+      "required": [
+        "pkiEzsigndocumentID",
+        "eEzsigndocumentVersion"
+      ],
+      "type": "object"
+    },
     "Custom-Ezsignfoldersignerassociationstatus-Response": {
       "description": "A Ezsignfoldersignerassociationstatus Object and children to create a complete structure",
       "properties": {
@@ -2163,6 +2407,69 @@
       "required": [
         "fkiEzsignfoldersignerassociationID",
         "a_objEzsignsignaturestatus"
+      ],
+      "type": "object"
+    },
+    "Custom-Ezsignfoldertype-Response": {
+      "description": "A Custom Ezsignfoldertype Object",
+      "properties": {
+        "bEzsignfoldertypeAllowdownloadattachmentezsignsigner": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeAllowdownloadattachmentezsignsigner"
+        },
+        "bEzsignfoldertypeAllowdownloadproofezsignsigner": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeAllowdownloadproofezsignsigner"
+        },
+        "bEzsignfoldertypeAutomaticsignature": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeAutomaticsignature"
+        },
+        "bEzsignfoldertypeDelegate": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeDelegate"
+        },
+        "bEzsignfoldertypeDiscussion": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeDiscussion"
+        },
+        "bEzsignfoldertypeReassignezsignsigner": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeReassignezsignsigner"
+        },
+        "bEzsignfoldertypeReassigngroup": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeReassigngroup"
+        },
+        "bEzsignfoldertypeReassignuser": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeReassignuser"
+        },
+        "bEzsignfoldertypeSendproofezsignsigner": {
+          "$ref": "#/definitions/Field-bEzsignfoldertypeSendproofezsignsigner"
+        },
+        "eEzsignfoldertypeDocumentmerge": {
+          "$ref": "#/definitions/Field-eEzsignfoldertypeDocumentmerge"
+        },
+        "fkiFontIDAnnotation": {
+          "$ref": "#/definitions/Field-pkiFontID"
+        },
+        "fkiFontIDFormfield": {
+          "$ref": "#/definitions/Field-pkiFontID"
+        },
+        "fkiFontIDSignature": {
+          "$ref": "#/definitions/Field-pkiFontID"
+        },
+        "iEzsignfoldertypeDeadlinedays": {
+          "$ref": "#/definitions/Field-iEzsignfoldertypeDeadlinedays"
+        },
+        "iEzsignfoldertypeFontsizeannotation": {
+          "$ref": "#/definitions/Field-iEzsignfoldertypeFontsizeannotation"
+        },
+        "iEzsignfoldertypeFontsizeformfield": {
+          "$ref": "#/definitions/Field-iEzsignfoldertypeFontsizeformfield"
+        },
+        "pkiEzsignfoldertypeID": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldertypeID"
+        },
+        "sEzsignfoldertypeNameX": {
+          "$ref": "#/definitions/Field-sEzsignfoldertypeNameX"
+        }
+      },
+      "required": [
+        "pkiEzsignfoldertypeID"
       ],
       "type": "object"
     },
@@ -2292,6 +2599,25 @@
       ],
       "type": "object"
     },
+    "Custom-TimezoneWithCode-Response": {
+      "description": "Generic AutocompleteElement Response",
+      "properties": {
+        "sCode": {
+          "description": "The Code of the time",
+          "example": "EST",
+          "type": "string"
+        },
+        "sTimezoneName": {
+          "description": "The Name of timezone",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sTimezoneName",
+        "sCode"
+      ],
+      "type": "object"
+    },
     "Field-bActivesessionAttachment": {
       "description": "Can access attachment when we clone a user",
       "example": false,
@@ -2336,9 +2662,54 @@
       "description": "If this flag is true. The signatory will receive a copy of every signed Ezsigndocument even if it ain't required to sign the document.",
       "type": "boolean"
     },
+    "Field-bEzsignfoldertypeAllowdownloadattachmentezsignsigner": {
+      "description": "Whether we allow the Ezsigndocument to be downloaded by an Ezsignsigner",
+      "example": false,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeAllowdownloadproofezsignsigner": {
+      "description": "Whether we allow the proof to be downloaded by an Ezsignsigner",
+      "example": false,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeAutomaticsignature": {
+      "description": "Whether we allow the automatic signature by an User",
+      "example": false,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeDelegate": {
+      "description": "Wheter if delegation of signature is allowed to another user or not",
+      "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeDiscussion": {
+      "description": "Wheter if creating a new Discussion is allowed or not",
+      "example": true,
+      "type": "boolean"
+    },
     "Field-bEzsignfoldertypeIsactive": {
       "description": "Whether the Ezsignfoldertype is active or not",
       "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeReassignezsignsigner": {
+      "description": "Wheter if Reassignment of signature is allowed by a signatory to another signatory or not",
+      "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeReassigngroup": {
+      "description": "Wheter if Reassignment of signatures of the groups to which the user belongs is authorized by a user to himself",
+      "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeReassignuser": {
+      "description": "Wheter if Reassignment of signature is allowed by a user to a signatory or another user or not",
+      "example": true,
+      "type": "boolean"
+    },
+    "Field-bEzsignfoldertypeSendproofezsignsigner": {
+      "description": "Whether we send the proof in the email to Ezsignsigner",
+      "example": false,
       "type": "boolean"
     },
     "Field-bEzsignformfieldSelected": {
@@ -2390,6 +2761,11 @@
       "example": true,
       "type": "boolean"
     },
+    "Field-bUserEzsigntemplaterolegrouping": {
+      "description": "Whether we group or not the Ezsigntemplate roles",
+      "example": true,
+      "type": "boolean"
+    },
     "Field-bUserEzsigntrial": {
       "description": "Whether the User's eZsign subscription is a trial",
       "example": false,
@@ -2425,8 +2801,28 @@
       "example": "2020-12-31 23:59:59",
       "type": "string"
     },
+    "Field-dtEzsignfolderArchive": {
+      "description": "The date and time at which the Ezsignfolder was archived.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
+    "Field-dtEzsignfolderClose": {
+      "description": "The date and time at which the Ezsignfolder was closed. Either by applying the last signature or by completing it prematurely.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
     "Field-dtEzsignfolderDelayedsenddate": {
       "description": "The date and time at which the Ezsignfolder will be sent in the future.",
+      "example": "2020-12-31T23:59:59.000Z",
+      "type": "string"
+    },
+    "Field-dtEzsignfolderDispose": {
+      "description": "The date and time at which the Ezsignfolder was disposed.",
+      "example": "2020-12-31 23:59:59",
+      "type": "string"
+    },
+    "Field-dtEzsignfolderSentdate": {
+      "description": "The date and time at which the Ezsignfolder was sent the last time.",
       "example": "2020-12-31T23:59:59.000Z",
       "type": "string"
     },
@@ -2622,6 +3018,16 @@
       "example": "Completed",
       "type": "string"
     },
+    "Field-eEzsignfolderCompletion": {
+      "description": "Indicates if the Ezsigndocument is completed when all signatures of this Ezsigndocument were applied or when all signatures of all Ezsigndocument were applied. When eEzsignfolderCompletion equals PerEzsignfolderStepSync, the document steps are synchronized. All documents move to a new step when all forms or signatures from the previous step have been completed for all documents.",
+      "enum": [
+        "PerEzsigndocument",
+        "PerEzsignfolder",
+        "PerEzsignfolderStepSync"
+      ],
+      "example": "PerEzsigndocument",
+      "type": "string"
+    },
     "Field-eEzsignfolderDocumentdependency": {
       "description": "Indicates if document dependencies apply to all users or just to Ezsignsigner",
       "enum": [
@@ -2651,6 +3057,32 @@
       "example": "None",
       "type": "string",
       "x-deprecated": true
+    },
+    "Field-eEzsignfolderStep": {
+      "description": "The signature step of the Ezsignfolder.",
+      "enum": [
+        "Unsent",
+        "PendingSend",
+        "Sent",
+        "PartiallySigned",
+        "Expired",
+        "Completed",
+        "Archived",
+        "Disposed"
+      ],
+      "example": "Completed",
+      "type": "string"
+    },
+    "Field-eEzsignfoldertypeDocumentmerge": {
+      "default": "No",
+      "description": "Indicates if document can be merged into one",
+      "enum": [
+        "No",
+        "YesWithWatermark",
+        "Yes"
+      ],
+      "example": "No",
+      "type": "string"
     },
     "Field-eEzsignfoldertypePrivacylevel": {
       "description": "The Privacy level of the Ezsignfolder type.\n\n* **User** is for personal folders use and cannot be shared\n* **Usergroup** is for shared folders and complex permission can be configured to control access",
@@ -2742,8 +3174,13 @@
       "minimum": 0,
       "type": "integer"
     },
+    "Field-iEzsigndocumentStepcurrent": {
+      "description": "The current step",
+      "example": 1,
+      "type": "integer"
+    },
     "Field-iEzsignfolderSendreminderfirstdays": {
-      "description": "The number of days before the the first reminder sending",
+      "description": "The number of days before the first reminder sending",
       "example": 30,
       "maximum": 255,
       "minimum": 0,
@@ -2754,6 +3191,34 @@
       "example": 30,
       "maximum": 255,
       "minimum": 0,
+      "type": "integer"
+    },
+    "Field-iEzsignfolderStepcurrent": {
+      "description": "The current step of the ezsignfolder when eEzsignfolderCompletion = 'PerEzsignfolderStepSync'",
+      "example": 30,
+      "maximum": 255,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Field-iEzsignfoldertypeDeadlinedays": {
+      "description": "The number of days to get all Ezsignsignatures",
+      "example": 5,
+      "maximum": 60,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "Field-iEzsignfoldertypeFontsizeannotation": {
+      "description": "Font size for annotations",
+      "example": 10,
+      "maximum": 255,
+      "minimum": 1,
+      "type": "integer"
+    },
+    "Field-iEzsignfoldertypeFontsizeformfield": {
+      "description": "Font size for form fields",
+      "example": 12,
+      "maximum": 255,
+      "minimum": 1,
       "type": "integer"
     },
     "Field-iFranchiseofficeCode": {
@@ -2784,6 +3249,12 @@
     "Field-pkiApikeyID": {
       "description": "The unique ID of the Apikey",
       "example": 99,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Field-pkiBillingentityinternalID": {
+      "description": "The unique ID of the Billingentityinternal.",
+      "example": 1,
       "minimum": 0,
       "type": "integer"
     },
@@ -2928,6 +3399,12 @@
       "minimum": 0,
       "type": "integer"
     },
+    "Field-pkiFontID": {
+      "description": "The unique ID of the Font",
+      "example": 1,
+      "minimum": 0,
+      "type": "integer"
+    },
     "Field-pkiFranchiseagenceID": {
       "description": "The unique ID of the Franchiseagence",
       "example": 117,
@@ -2964,7 +3441,7 @@
       "type": "integer"
     },
     "Field-pkiSecretquestionID": {
-      "description": "The unique ID of the Secretquestion.\n\nValid values:\n\n|Value|Description|\n|-|-|\n|1|The name of the hospital in which you were born|\n|2|The name of your grade school|\n|3|The last name of your favorite teacher|\n|4|Your favorite sports team|\n|5|Your favorite TV show|\n|6|Your favorite movie|\n|7|The name of the street on which you grew up|\n|8|The name of your first employer|\n|9|Your first car|\n|10|Your favorite food|\n|11|The name of your first pet|\n|12|Favorite musician/band|\n|13|What instrument you play|\n|14|Your father's middle name|\n|15|Your mother's maiden name|\n|16|Name of your eldest child|\n|17|Your spouse's middle name|\n|18|Favorite restaurant|\n|19|Childhood nickname|\n|20|Favorite vacation destination|\n|21|Your boat's name|\n|22|Date of Birth (YYYY-MM-DD)|\n|22|Secret Code|\n|22|Your reference code|",
+      "description": "The unique ID of the Secretquestion.\n\nValid values:\n\n|Value|Description|\n|-|-|\n|1|The name of the hospital in which you were born|\n|2|The name of your grade school|\n|3|The last name of your favorite teacher|\n|4|Your favorite sports team|\n|5|Your favorite TV show|\n|6|Your favorite movie|\n|7|The name of the street on which you grew up|\n|8|The name of your first employer|\n|9|Your first car|\n|10|Your favorite food|\n|11|The name of your first pet|\n|12|Favorite musician/band|\n|13|What instrument you play|\n|14|Your father's middle name|\n|15|Your mother's maiden name|\n|16|Name of your eldest child|\n|17|Your spouse's middle name|\n|18|Favorite restaurant|\n|19|Childhood nickname|\n|20|Favorite vacation destination|\n|21|Your boat's name|\n|22|Date of Birth (YYYY-MM-DD)|\n|23|Secret Code|\n|24|Your reference code|\n|25|What are the last 4 digits of your SIN|\n|26|What is your postal code|\n|27|What is your employee number|\n|28|What is your manager’s first name|\n|29|What is your file number|\n|30|What is your client/member number|\n|31|What is your license number|\n|32|What are the last 4 digits of your phone number|\n|33|What is your student number|",
       "example": 7,
       "minimum": 0,
       "type": "integer",
@@ -3053,6 +3530,11 @@
     "Field-sApikeyDescriptionX": {
       "description": "The description of the Apikey in the language of the requester",
       "example": "Project X",
+      "type": "string"
+    },
+    "Field-sBillingentityinternalDescriptionX": {
+      "description": "The description of the Billingentityinternal in the language of the requester",
+      "example": "Default",
       "type": "string"
     },
     "Field-sCompanyNameX": {
@@ -3146,9 +3628,33 @@
       "pattern": "^.{0,80}$",
       "type": "string"
     },
+    "Field-sEzsigntemplateannotationDefaulttext": {
+      "description": "The defaulttext of the Ezsigntemplateannotation",
+      "example": "John Doe",
+      "pattern": "^.{0,65535}$",
+      "type": "string"
+    },
+    "Field-sEzsigntemplateannotationDescription": {
+      "description": "The description of the Ezsigntemplateannotation",
+      "example": "Name",
+      "pattern": "^.{0,80}$",
+      "type": "string"
+    },
     "Field-sEzsigntemplateglobalDescription": {
       "description": "The description of the Ezsigntemplate",
       "example": "Standard Contract",
+      "type": "string"
+    },
+    "Field-sEzsigntemplateglobalannotationDefaulttext": {
+      "description": "The defaulttext of the Ezsigntemplateglobalannotation",
+      "example": "John Doe",
+      "pattern": "^.{0,65535}$",
+      "type": "string"
+    },
+    "Field-sEzsigntemplateglobalannotationDescription": {
+      "description": "The description of the Ezsigntemplateglobalannotation",
+      "example": "Name",
+      "pattern": "^.{0,80}$",
       "type": "string"
     },
     "Field-sEzsigntemplateglobalsigner": {
@@ -3286,11 +3792,17 @@
         "bActivesessionIssuperadmin": {
           "$ref": "#/definitions/Field-bActivesessionIssuperadmin"
         },
+        "bActivesessionMaillinglistrequest": {
+          "$ref": "#/definitions/Computed-bActivesessionMaillinglistrequest"
+        },
         "bActivesessionRealestatecompleted": {
           "$ref": "#/definitions/Field-bActivesessionRealestatecompleted"
         },
         "bSystemconfigurationEzsignpaidbyoffice": {
           "$ref": "#/definitions/Field-bSystemconfigurationEzsignpaidbyoffice"
+        },
+        "bUserEzsigntemplaterolegrouping": {
+          "$ref": "#/definitions/Field-bUserEzsigntemplaterolegrouping"
         },
         "bUserEzsigntrial": {
           "$ref": "#/definitions/Field-bUserEzsigntrial"
@@ -3502,11 +4014,17 @@
         "bActivesessionIssuperadmin": {
           "$ref": "#/definitions/Field-bActivesessionIssuperadmin"
         },
+        "bActivesessionMaillinglistrequest": {
+          "$ref": "#/definitions/Computed-bActivesessionMaillinglistrequest"
+        },
         "bActivesessionRealestatecompleted": {
           "$ref": "#/definitions/Field-bActivesessionRealestatecompleted"
         },
         "bSystemconfigurationEzsignpaidbyoffice": {
           "$ref": "#/definitions/Field-bSystemconfigurationEzsignpaidbyoffice"
+        },
+        "bUserEzsigntemplaterolegrouping": {
+          "$ref": "#/definitions/Field-bUserEzsigntemplaterolegrouping"
         },
         "bUserEzsigntrial": {
           "$ref": "#/definitions/Field-bUserEzsigntrial"
@@ -3921,7 +4439,7 @@
           "$ref": "#/definitions/Field-iEzsigndocumentSignaturetotal"
         },
         "iEzsigndocumentStepcurrent": {
-          "$ref": "#/definitions/Computed-iEzsigndocumentStepcurrent"
+          "$ref": "#/definitions/Field-iEzsigndocumentStepcurrent"
         },
         "iEzsigndocumentSteptotal": {
           "$ref": "#/definitions/Computed-iEzsigndocumentSteptotal"
@@ -4016,6 +4534,68 @@
       ],
       "type": "object"
     },
+    "ezsigndocument-applyEzsigntemplate-v3-Request": {
+      "description": "Request for POST /3/object/ezsigndocument/{pkiEzsigndocumentID}/applyezsigntemplate",
+      "properties": {
+        "a_fkiEzsignfoldersignerassociationID": {
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+          },
+          "type": "array"
+        },
+        "a_sEzsigntemplateannotationDefaulttext": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplateannotationDefaulttext"
+          },
+          "type": "array"
+        },
+        "a_sEzsigntemplateannotationDescription": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplateannotationDescription"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "a_sEzsigntemplatesigner": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplatesigner"
+          },
+          "type": "array"
+        },
+        "fkiEzsigntemplateID": {
+          "$ref": "#/definitions/Field-pkiEzsigntemplateID"
+        }
+      },
+      "required": [
+        "a_sEzsigntemplatesigner",
+        "a_fkiEzsignfoldersignerassociationID",
+        "fkiEzsigntemplateID",
+        "a_sEzsigntemplateannotationDescription",
+        "a_sEzsigntemplateannotationDefaulttext"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-applyEzsigntemplate-v3-Response": {
+      "description": "Response for POST /3/object/ezsigndocument/{pkiEzsigndocument}/applyEzsigntemplate",
+      "properties": {
+        "a_objWarning": {
+          "items": {
+            "$ref": "#/definitions/Common-Response-Warning"
+          },
+          "type": "array"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
     "ezsigndocument-applyEzsigntemplateglobal-v1-Request": {
       "description": "Request for POST /1/object/ezsigndocument/{pkiEzsigndocumentID}/applyEzsigntemplateglobal",
       "properties": {
@@ -4045,7 +4625,66 @@
       "type": "object"
     },
     "ezsigndocument-applyEzsigntemplateglobal-v1-Response": {
-      "description": "Response for POST /2/object/ezsigndocument/{pkiEzsigndocument}/applyEzsigntemplate",
+      "description": "Response for POST /1/object/ezsigndocument/{pkiEzsigndocument}/applyEzsigntemplateglobal",
+      "properties": {
+        "a_objWarning": {
+          "items": {
+            "$ref": "#/definitions/Common-Response-Warning"
+          },
+          "type": "array"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-applyEzsigntemplateglobal-v2-Request": {
+      "description": "Request for POST /2/object/ezsigndocument/{pkiEzsigndocumentID}/applyEzsigntemplateglobal",
+      "properties": {
+        "a_fkiEzsignfoldersignerassociationID": {
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+          },
+          "type": "array"
+        },
+        "a_sEzsigntemplateglobalannotationDefaulttext": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplateglobalannotationDefaulttext"
+          },
+          "type": "array"
+        },
+        "a_sEzsigntemplateglobalannotationDescription": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplateglobalannotationDescription"
+          },
+          "type": "array"
+        },
+        "a_sEzsigntemplateglobalsigner": {
+          "items": {
+            "$ref": "#/definitions/Field-sEzsigntemplateglobalsigner"
+          },
+          "type": "array"
+        },
+        "fkiEzsigntemplateglobalID": {
+          "$ref": "#/definitions/Field-pkiEzsigntemplateglobalID"
+        }
+      },
+      "required": [
+        "a_sEzsigntemplateglobalsigner",
+        "a_fkiEzsignfoldersignerassociationID",
+        "fkiEzsigntemplateglobalID"
+      ],
+      "type": "object"
+    },
+    "ezsigndocument-applyEzsigntemplateglobal-v2-Response": {
+      "description": "Response for POST /2/object/ezsigndocument/{pkiEzsigndocument}/applyEzsigntemplateglobal",
       "properties": {
         "a_objWarning": {
           "items": {
@@ -4504,6 +5143,114 @@
       ],
       "type": "object"
     },
+    "ezsignfolder-ResponseCompoundV3": {
+      "description": "An Ezsignfolder Object and children to create a complete structure",
+      "properties": {
+        "bEzsignfolderIsdisposable": {
+          "$ref": "#/definitions/Computed-bEzsignfolderIsdisposable"
+        },
+        "dtEzsignfolderArchive": {
+          "$ref": "#/definitions/Field-dtEzsignfolderArchive"
+        },
+        "dtEzsignfolderClose": {
+          "$ref": "#/definitions/Field-dtEzsignfolderClose"
+        },
+        "dtEzsignfolderDelayedsenddate": {
+          "$ref": "#/definitions/Field-dtEzsignfolderDelayedsenddate"
+        },
+        "dtEzsignfolderDispose": {
+          "$ref": "#/definitions/Field-dtEzsignfolderDispose"
+        },
+        "dtEzsignfolderDuedate": {
+          "$ref": "#/definitions/Computed-dtEzsignfolderDuedate"
+        },
+        "dtEzsignfolderScheduledarchive": {
+          "$ref": "#/definitions/Computed-dtEzsignfolderScheduledarchive"
+        },
+        "dtEzsignfolderScheduleddispose": {
+          "$ref": "#/definitions/Computed-dtEzsignfolderScheduleddispose"
+        },
+        "dtEzsignfolderSentdate": {
+          "$ref": "#/definitions/Field-dtEzsignfolderSentdate"
+        },
+        "eEzsignfolderAccess": {
+          "$ref": "#/definitions/Computed-eEzsignfolderAccess"
+        },
+        "eEzsignfolderCompletion": {
+          "$ref": "#/definitions/Field-eEzsignfolderCompletion"
+        },
+        "eEzsignfolderDocumentdependency": {
+          "$ref": "#/definitions/Field-eEzsignfolderDocumentdependency"
+        },
+        "eEzsignfolderMessageorder": {
+          "$ref": "#/definitions/Field-eEzsignfolderMessageorder"
+        },
+        "eEzsignfolderStep": {
+          "$ref": "#/definitions/Field-eEzsignfolderStep"
+        },
+        "fkiBillingentityinternalID": {
+          "$ref": "#/definitions/Field-pkiBillingentityinternalID"
+        },
+        "fkiEzsignfoldertypeID": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldertypeID"
+        },
+        "fkiEzsigntsarequirementID": {
+          "$ref": "#/definitions/Field-pkiEzsigntsarequirementID"
+        },
+        "fkiTimezoneID": {
+          "$ref": "#/definitions/Field-pkiTimezoneID"
+        },
+        "iEzsignfolderSendreminderfirstdays": {
+          "$ref": "#/definitions/Field-iEzsignfolderSendreminderfirstdays"
+        },
+        "iEzsignfolderSendreminderotherdays": {
+          "$ref": "#/definitions/Field-iEzsignfolderSendreminderotherdays"
+        },
+        "iEzsignfolderStepcurrent": {
+          "$ref": "#/definitions/Field-iEzsignfolderStepcurrent"
+        },
+        "objAudit": {
+          "$ref": "#/definitions/Common-Audit"
+        },
+        "objEzsignfoldertype": {
+          "$ref": "#/definitions/Custom-Ezsignfoldertype-Response"
+        },
+        "objTimezone": {
+          "$ref": "#/definitions/Custom-TimezoneWithCode-Response"
+        },
+        "pkiEzsignfolderID": {
+          "$ref": "#/definitions/Field-pkiEzsignfolderID"
+        },
+        "sBillingentityinternalDescriptionX": {
+          "$ref": "#/definitions/Field-sBillingentityinternalDescriptionX"
+        },
+        "sEzsignfolderDescription": {
+          "$ref": "#/definitions/Field-sEzsignfolderDescription"
+        },
+        "sEzsignfolderExternalid": {
+          "$ref": "#/definitions/Common-Format-ExternalID"
+        },
+        "sEzsignfoldertypeNameX": {
+          "type": "string",
+          "x-deprecated": true
+        },
+        "sEzsigntsarequirementDescriptionX": {
+          "$ref": "#/definitions/Field-sEzsigntsarequirementDescriptionX"
+        },
+        "tEzsignfolderMessage": {
+          "$ref": "#/definitions/Field-tEzsignfolderMessage"
+        },
+        "tEzsignfolderNote": {
+          "$ref": "#/definitions/Field-tEzsignfolderNote"
+        }
+      },
+      "required": [
+        "pkiEzsignfolderID",
+        "sEzsignfolderDescription",
+        "eEzsignfolderCompletion"
+      ],
+      "type": "object"
+    },
     "ezsignfolder-createObject-v2-Request": {
       "description": "Request for POST /2/object/ezsignfolder",
       "properties": {
@@ -4627,6 +5374,66 @@
       ],
       "type": "object"
     },
+    "ezsignfolder-duplicate-v1-Request": {
+      "description": "",
+      "properties": {
+        "a_fkiEzsignfoldersignerassociationID": {
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+          },
+          "type": "array"
+        },
+        "a_objEzsigndocument": {
+          "items": {
+            "$ref": "#/definitions/Custom-EzsigndocumentDuplicate-Request"
+          },
+          "type": "array"
+        },
+        "sEzsignfolderDescription": {
+          "$ref": "#/definitions/Field-sEzsignfolderDescription"
+        },
+        "tEzsignfolderNote": {
+          "$ref": "#/definitions/Field-tEzsignfolderNote"
+        }
+      },
+      "required": [
+        "sEzsignfolderDescription",
+        "a_fkiEzsignfoldersignerassociationID",
+        "a_objEzsigndocument"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-duplicate-v1-Response": {
+      "description": "Response for POST /1/object/ezsignfolder/{pkiEzsignfolderID}/duplicate",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsignfolder-duplicate-v1-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-duplicate-v1-Response-mPayload": {
+      "description": "Payload for POST /1/object/ezsignfolder/{pkiEzsignfolderID}/duplicate",
+      "properties": {
+        "pkiEzsignfolderID": {
+          "$ref": "#/definitions/Field-pkiEzsignfolderID"
+        }
+      },
+      "required": [
+        "pkiEzsignfolderID"
+      ],
+      "type": "object"
+    },
     "ezsignfolder-getEzsigndocuments-v1-Response": {
       "description": "Response for GET /1/object/ezsignfolder/{pkiEzsignfolder}/getEzsigndocuments",
       "properties": {
@@ -4692,6 +5499,37 @@
       },
       "required": [
         "a_objEzsigndocument"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getObject-v3-Response": {
+      "description": "Response for GET /3/object/ezsignfolder/{pkiEzsignfolderID}",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsignfolder-getObject-v3-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfolder-getObject-v3-Response-mPayload": {
+      "description": "Payload for GET /3/object/ezsignfolder/{pkiEzsignfolderID}",
+      "properties": {
+        "objEzsignfolder": {
+          "$ref": "#/definitions/ezsignfolder-ResponseCompoundV3"
+        }
+      },
+      "required": [
+        "objEzsignfolder"
       ],
       "type": "object"
     },
