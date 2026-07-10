@@ -13,7 +13,7 @@
     },
     "termsOfService": "https://www.ezmax.ca/TODO",
     "title": "eZmax API Definition (PowerAutomate)",
-    "version": "1.3.1"
+    "version": "1.3.2"
   },
   "host": "prod.api.appcluster01.ca-central-1.ezmax.com",
   "basePath": "/rest",
@@ -831,6 +831,7 @@
             }
           }
         },
+        "deprecated": true,
         "description": "The endpoint allows to create one or many elements at once.",
         "operationId": "Ezsignfoldersignerassociation_CreateObject_V2",
         "summary": "Create a new Ezsignfoldersignerassociation",
@@ -1741,6 +1742,38 @@
         "description": "",
         "operationId": "Ezsignfolder_Send_V3",
         "summary": "Send the Ezsignfolder to the signatories for signature",
+        "x-ms-visibility": "important"
+      }
+    },
+    "/3/object/ezsignfoldersignerassociation": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ezsignfoldersignerassociation-createObject-v3-Request"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/ezsignfoldersignerassociation-createObject-v3-Response"
+            }
+          }
+        },
+        "description": "The endpoint allows to create one or many elements at once.",
+        "operationId": "Ezsignfoldersignerassociation_CreateObject_V3",
+        "summary": "Create a new Ezsignfoldersignerassociation",
         "x-ms-visibility": "important"
       }
     }
@@ -3071,6 +3104,16 @@
         "Disposed"
       ],
       "example": "Completed",
+      "type": "string"
+    },
+    "Field-eEzsignfoldersignerassociationRole": {
+      "description": "The type of the EzsignfoldersignerassociationRole.\n\n1. **CC** receive a copy of all documents.\n2. **Signer** sign document.\n3. **SignerAndCC** sign document and receive a copy of all documents.",
+      "enum": [
+        "CC",
+        "Signer",
+        "SignerAndCC"
+      ],
+      "example": "Signer",
       "type": "string"
     },
     "Field-eEzsignfoldertypeDocumentmerge": {
@@ -5636,6 +5679,37 @@
       ],
       "type": "object"
     },
+    "ezsignfoldersignerassociation-RequestCompoundV2": {
+      "description": "An Ezsignfoldersignerassociation Object and children to create a complete structure",
+      "properties": {
+        "eEzsignfoldersignerassociationRole": {
+          "$ref": "#/definitions/Field-eEzsignfoldersignerassociationRole"
+        },
+        "fkiEzsignfolderID": {
+          "$ref": "#/definitions/Field-pkiEzsignfolderID"
+        },
+        "fkiEzsignsignergroupID": {
+          "$ref": "#/definitions/Field-pkiEzsignsignergroupID"
+        },
+        "fkiUserID": {
+          "$ref": "#/definitions/Field-pkiUserID"
+        },
+        "objEzsignsigner": {
+          "$ref": "#/definitions/ezsignsigner-RequestCompound"
+        },
+        "pkiEzsignfoldersignerassociationID": {
+          "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+        },
+        "tEzsignfoldersignerassociationMessage": {
+          "$ref": "#/definitions/Field-tEzsignfoldersignerassociationMessage"
+        }
+      },
+      "required": [
+        "fkiEzsignfolderID",
+        "eEzsignfoldersignerassociationRole"
+      ],
+      "type": "object"
+    },
     "ezsignfoldersignerassociation-createObject-v2-Request": {
       "description": "Request for POST /2/object/ezsignfoldersignerassociation",
       "properties": {
@@ -5672,6 +5746,58 @@
       "type": "object"
     },
     "ezsignfoldersignerassociation-createObject-v2-Response-mPayload": {
+      "description": "Payload for POST /2/object/ezsignfoldersignerassociation",
+      "properties": {
+        "a_pkiEzsignfoldersignerassociationID": {
+          "description": "An array of unique IDs representing the object that were requested to be created.\n\nThey are returned in the same order as the array containing the objects to be created that was sent in the request.",
+          "items": {
+            "$ref": "#/definitions/Field-pkiEzsignfoldersignerassociationID"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_pkiEzsignfoldersignerassociationID"
+      ],
+      "type": "object"
+    },
+    "ezsignfoldersignerassociation-createObject-v3-Request": {
+      "description": "Request for POST /2/object/ezsignfoldersignerassociation",
+      "properties": {
+        "a_objEzsignfoldersignerassociation": {
+          "items": {
+            "$ref": "#/definitions/ezsignfoldersignerassociation-RequestCompoundV2"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "a_objEzsignfoldersignerassociation"
+      ],
+      "type": "object"
+    },
+    "ezsignfoldersignerassociation-createObject-v3-Response": {
+      "description": "Response for POST /2/object/ezsignfoldersignerassociation",
+      "properties": {
+        "mPayload": {
+          "$ref": "#/definitions/ezsignfoldersignerassociation-createObject-v3-Response-mPayload"
+        },
+        "objDebug": {
+          "$ref": "#/definitions/Common-Response-objDebug"
+        },
+        "objDebugPayload": {
+          "$ref": "#/definitions/Common-Response-objDebugPayload"
+        }
+      },
+      "required": [
+        "mPayload",
+        "objDebugPayload"
+      ],
+      "type": "object"
+    },
+    "ezsignfoldersignerassociation-createObject-v3-Response-mPayload": {
       "description": "Payload for POST /2/object/ezsignfoldersignerassociation",
       "properties": {
         "a_pkiEzsignfoldersignerassociationID": {
