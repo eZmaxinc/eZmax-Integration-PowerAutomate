@@ -86,7 +86,7 @@
             "description": "The user has been redirected"
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -131,13 +131,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -184,13 +184,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -240,13 +240,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -291,13 +291,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -343,13 +343,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -394,13 +394,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -434,7 +434,7 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -517,7 +517,7 @@
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error-sTemporaryFileUrl"
             }
@@ -564,13 +564,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -617,13 +617,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -669,13 +669,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -742,7 +742,7 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -788,13 +788,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -1563,7 +1563,7 @@
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error-sTemporaryFileUrl"
             }
@@ -1609,13 +1609,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -1682,7 +1682,7 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -1727,13 +1727,13 @@
             }
           },
           "404": {
-            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body",
+            "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
           },
           "422": {
-            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body",
+            "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body.",
             "schema": {
               "$ref": "#/definitions/Common-Response-Error"
             }
@@ -3001,6 +3001,7 @@
         "METHODNOTALLOWED",
         "NOTACCEPTABLE_CONTENT",
         "NOTACCEPTABLE_LANGUAGE",
+        "CONFLICT",
         "UNPROCESSABLEENTITY_ACTIVESESSION_ALREADY_CLONING",
         "UNPROCESSABLEENTITY_CANNOTDELETE",
         "UNPROCESSABLEENTITY_CANNOTMODIFY",
@@ -3110,6 +3111,7 @@
       "description": "The role of the Ezsignfoldersignerassociation.\n\n1. **CC** receive a copy of all documents.\n2. **Signer** sign document.\n3. **SignerAndCC** sign document and receive a copy of all documents.",
       "enum": [
         "CC",
+        "CCDeleted",
         "Signer",
         "SignerAndCC"
       ],
@@ -3484,7 +3486,7 @@
       "type": "integer"
     },
     "Field-pkiSecretquestionID": {
-      "description": "The unique ID of the Secretquestion.\n\nValid values:\n\n|Value|Description|\n|-|-|\n|1|The name of the hospital in which you were born|\n|2|The name of your grade school|\n|3|The last name of your favorite teacher|\n|4|Your favorite sports team|\n|5|Your favorite TV show|\n|6|Your favorite movie|\n|7|The name of the street on which you grew up|\n|8|The name of your first employer|\n|9|Your first car|\n|10|Your favorite food|\n|11|The name of your first pet|\n|12|Favorite musician/band|\n|13|What instrument you play|\n|14|Your father's middle name|\n|15|Your mother's maiden name|\n|16|Name of your eldest child|\n|17|Your spouse's middle name|\n|18|Favorite restaurant|\n|19|Childhood nickname|\n|20|Favorite vacation destination|\n|21|Your boat's name|\n|22|Date of Birth (YYYY-MM-DD)|\n|23|Secret Code|\n|24|Your reference code|\n|25|What are the last 4 digits of your SIN|\n|26|What is your postal code|\n|27|What is your employee number|\n|28|What is your manager’s first name|\n|29|What is your file number|\n|30|What is your client/member number|\n|31|What is your license number|\n|32|What are the last 4 digits of your phone number|\n|33|What is your student number|",
+      "description": "The unique ID of the Secretquestion.\n\nValid values:\n\n|Value|Description|\n|-|-|\n|1|The name of the hospital in which you were born|\n|2|The name of your grade school|\n|3|The last name of your favorite teacher|\n|4|Your favorite sports team|\n|5|Your favorite TV show|\n|6|Your favorite movie|\n|7|The name of the street on which you grew up|\n|8|The name of your first employer|\n|9|Your first car|\n|10|Your favorite food|\n|11|The name of your first pet|\n|12|Favorite musician/band|\n|13|What instrument you play|\n|14|Your father's middle name|\n|15|Your mother's maiden name|\n|16|Name of your eldest child|\n|17|Your spouse's middle name|\n|18|Favorite restaurant|\n|19|Childhood nickname|\n|20|Favorite vacation destination|\n|21|Your boat's name|\n|22|Date of Birth (YYYY-MM-DD)|\n|23|Secret Code|\n|24|Your reference code|\n|25|What are the last 4 digits of your SIN|\n|26|What is your postal code|\n|27|What is your employee number|\n|28|What is your managerâ€™s first name|\n|29|What is your file number|\n|30|What is your client/member number|\n|31|What is your license number|\n|32|What are the last 4 digits of your phone number|\n|33|What is your student number|",
       "example": 7,
       "minimum": 0,
       "type": "integer",
@@ -6519,7 +6521,7 @@
             }
           }
         },
-        "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body"
+        "description": "The request failed. The element on which you were trying to work does not exists. Look for detail about the error in the body."
       },
       "Response-Error-422": {
         "content": {
@@ -6529,7 +6531,7 @@
             }
           }
         },
-        "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body"
+        "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body."
       },
       "Response-Error-422-sTemporaryFileUrl": {
         "content": {
@@ -6539,7 +6541,7 @@
             }
           }
         },
-        "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again"
+        "description": "The request was syntactically valid but failed because of an interdependance condition. Look for detail about the error in the body. If the error is recoverable sTemporaryFileUrl will be set and you can use this url to try a new request without sending the file over again."
       },
       "Response-Redirect-302": {
         "description": "The user has been redirected"
